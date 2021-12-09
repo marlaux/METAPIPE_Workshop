@@ -28,7 +28,7 @@ conda run -n env_py27 python \
     "${QUALITY}" \
     "${ASSIGNMENTS}" \
     ${PWD}/*_dp.fasta > "${OTU_TABLE}" 2>/dev/null
-#conda deactivate
+conda deactivate
 
 
 
