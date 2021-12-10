@@ -63,19 +63,19 @@ while getopts "b:F:R:f:r:p:d:l:h" option; do
    esac
 done
 
-mkdir clip_out
-mkdir clip_out/adapter_clip
+mkdir -p clip_out
+mkdir -p clip_out/adapter_clip
 for file in "${DIR}"/*_LA.fq; do LA="$(basename $file _LA.fq)"; cutadapt --quiet -a file:Barcodes_LA1.fa -a file:Barcodes_LA2.fa -a file:Barcodes_LA3.fa --action trim --trim-n --max-n 0 --minimum-length $MIN_LEN -o ${LA}_trim1.fq $file; done;
 
 for f in *_trim1.fq; do trim1="$(basename $f _trim1.fq)"; cutadapt --quiet -a "${PRIMER_F}...${PRIMER_R_RC}" -O $MIN_F -a "${PRIMER_R}...${PRIMER_F_RC}" -O $MIN_R --action=trim --minimum-length $MIN_LEN -o ${trim1}_trim2.fq $f; done;
 mv *_trim1.fq clip_out/adapter_clip
 
-mkdir clip_out/primer_clip
+mkdir -p clip_out/primer_clip
 # Discard sequences containing Ns, add expected error rates and convert to fasta
 for j in *_trim2.fq; do trim2="$(basename $j _trim2.fq)"; vsearch --quiet --fastq_filter $j --relabel_sha1 --fastq_qmax 45 --eeout --fastq_maxns 0 --fastqout ${trim2}_trim3.fq; done;
 mv *_trim2.fq clip_out/primer_clip
 
-mkdir clip_out/trimming
+mkdir -p clip_out/trimming
 for k in *_trim3.fq; do trim3a="$(basename $k _trim3.fq)"; vsearch --quiet --fastq_filter $k --fastaout ${trim3a}_trim3.fasta; done;
 
 #quality file
@@ -97,7 +97,7 @@ mv *_trim3.fq clip_out/trimming
 for p in *_trim3.fasta; do trim3b="$(basename $p _trim3.fasta)"; vsearch --quiet --derep_fulllength $p --sizeout --fasta_width 0 --output ${trim3b}_dp_tmp.fasta; done;
 rm *_trim3.fasta
 
-mkdir dereplicated
+mkdir -p dereplicated
 for x in *_dp_tmp.fasta; do dp="$(basename $x _dp_tmp.fasta)"; sed -e '/^>/ s/;ee=[0-9]*.[0-9]*//g' $x > ${dp}_dp.fasta; done;
 mv *_dp.fasta dereplicated
 rm *_dp_tmp.fasta
