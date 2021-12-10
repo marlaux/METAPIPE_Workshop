@@ -1,6 +1,6 @@
 #!/bin/bash
 
-SCRIPT="6_OTU_contingency_table.py"
+SCRIPT="6a_OTU_contingency_table.py"
 REPRESENTATIVES=$1
 #filename=$(basename -- ${REPRESENTATIVES})
 #filename="${filename%.*}"
@@ -19,7 +19,7 @@ PWD="${4}"
 #source ~/.bashrc
 #conda init bash
 #conda activate env_py27
-conda run -n env_py27 python \
+conda run -n py27 python \
     "${SCRIPT}" \
     "${REPRESENTATIVES}" \
     "${STATS}" \
@@ -28,7 +28,6 @@ conda run -n env_py27 python \
     "${QUALITY}" \
     "${ASSIGNMENTS}" \
     ${PWD}/*_dp.fasta > "${OTU_TABLE}" 2>/dev/null
-conda deactivate
 
 
 
