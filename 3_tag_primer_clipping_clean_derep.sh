@@ -65,7 +65,7 @@ done
 
 mkdir -p clip_out
 mkdir -p clip_out/tag_clip
-for file in "${DIR}"/*_LA.fq; do LA="$(basename $file _LA.fq)"; cutadapt --quiet -a file:Barcodes_LA1.fa -a file:Barcodes_LA2.fa -a file:Barcodes_LA3.fa --action trim --trim-n --max-n 0 --minimum-length $MIN_LEN -o ${LA}_trim1.fq $file; done;
+for file in "${DIR}"/*_LA.fq; do LA="$(basename $file _LA.fq)"; cutadapt --quiet -a file:Tags_LA1.fa -a file:Tags_LA2.fa -a file:Tags_LA3.fa --action trim --trim-n --max-n 0 --minimum-length $MIN_LEN -o ${LA}_trim1.fq $file; done;
 
 for f in *_trim1.fq; do trim1="$(basename $f _trim1.fq)"; cutadapt --quiet -a "${PRIMER_F}...${PRIMER_R_RC}" -O $MIN_F -a "${PRIMER_R}...${PRIMER_F_RC}" -O $MIN_R --action=trim --minimum-length $MIN_LEN -o ${trim1}_trim2.fq $f; done;
 mv *_trim1.fq clip_out/tag_clip
