@@ -8,7 +8,6 @@ my $prefix = $ARGV[1]; #prefix to taxa assignment output
 open (MYFILE, $arq1);
 my @file = <MYFILE>;
 close (MYFILE);
-#open (NEW_FILE, ">>${prefix}_OTU_tax_assignments.txt");
 open(NEW_FILE, ">", "${prefix}_OTU_tax_assignments_tmp.txt") or die "Couldn't open: $!";
 
 print NEW_FILE "amplicon\tKingdom\tPhylum\tClass\tOrd\tFamily\tGenus\tSpecies\tSIM\tOTU_abundance\n";
