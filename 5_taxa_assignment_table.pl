@@ -10,7 +10,7 @@ my @file = <MYFILE>;
 close (MYFILE);
 open(NEW_FILE, ">", "${prefix}_OTU_tax_assignments_tmp.txt") or die "Couldn't open: $!";
 
-print NEW_FILE "amplicon\tKingdom\tPhylum\tClass\tOrd\tFamily\tGenus\tSpecies\tSIM\tOTU_abundance\n";
+print NEW_FILE "amplicon\tKingdom\tPhylum\tClass\tOrder\tFamily\tGenus\tSpecies\tSIM\tOTU_abundance\n";
 my @new_file=();
 	foreach my $line (@file) {
 		chomp ($line);
