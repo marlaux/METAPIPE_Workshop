@@ -116,17 +116,10 @@ TMP5=$(mktemp --tmpdir=".")
 TMP6=$(mktemp --tmpdir=".") 
 TMP7=$(mktemp --tmpdir=".") 
 
-#module --force purge
-#module load StdEnv
-#module load SeqKit/0.13.2
-
 ##extract accession code from NCBI references
 echo "extracting accession code from NCBI references..."
 echo "extracting accession code from NCBI references..." >> "${PREFIX}.log"
-#source ~/anaconda3/etc/profile.d/conda.sh
-#conda activate seqkitenv
 seqkit seq --quiet -n -i $REFERENCES > "${TMP1}" 2>>"${PREFIX}.log"
-#conda deactivate
 accwc=$(wc -l $TMP1) 2>>"${PREFIX}.log"
 echo "$accwc accession codes extracted:" 
 echo "$accwc accession codes extracted:" >> "${PREFIX}.log"
@@ -153,10 +146,7 @@ edwc=$(wc -l $TMP4) 2>>"${PREFIX}.log"
 echo "removing NCBI sequences header, linearizing sequences..."
 echo "removing NCBI sequences header, linearizing sequences..." >> "${PREFIX}.log"
 sed '/^>/ s/ .*//' $REFERENCES > "${TMP5}" 2>>"${PREFIX}.log"
-#source ~/anaconda3/etc/profile.d/conda.sh
-#conda activate seqkitenv
 seqkit seq --quiet -w 0 $TMP5 > "${TMP6}" 2>>"${PREFIX}.log"
-#conda deactivate
 #add a '+' sign in binomial species last lineage field
 perl NCBI_lineage_edit.pl "${TMP4}" 2>>"${PREFIX}.log"
 mv edit_lineage.out "${PREFIX}_edit_lineage.out" 2>>"${PREFIX}.log"
@@ -165,10 +155,6 @@ echo "joining edited lineage file with linearized sequences..." >> "${PREFIX}.lo
 #join final edited lineage file with the linearized NCBI sequences file
 awk '/>/ {getline seq} {sub (">","",$0);print $0, seq}' $TMP6 | sort -k1 | join -1 1 -2 1 - <(sort -k1 "${PREFIX}_edit_lineage.out") -o 1.1,2.2,1.2 | awk '{print ">"$1" "$2"\n"$3}' > "${TMP7}" 2>>"${PREFIX}.log"
 linedwc=$(grep -c "^>" $TMP7) 2>>"${PREFIX}.log"
-
-#module --force purge
-#module load StdEnv
-#module load BioPerl/1.7.2-GCCcore-8.2.0-Perl-5.28.1
 
 echo "removing sequence duplicates..."
 echo "removing sequence duplicates..." >> "${PREFIX}.log"
