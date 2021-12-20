@@ -43,15 +43,8 @@ while getopts "r:F:R:p:h" option; do
    esac
 done
 
-#module --force purge
-#module load StdEnv
-#module load cutadapt/2.10-GCCcore-9.3.0-Python-3.8.2
-
-#source ~/anaconda3/etc/profile.d/conda.sh
-#conda activate cutadaptenv
 cutadapt	\
 	--discard-untrimmed	\
 	-g ${PRIMER_F}	\
 	-a ${PRIMER_R}	\
 	${INPUT} > "${PREFIX}_cutted_references.fasta"
-#conda deactivate
