@@ -15,7 +15,7 @@ usage () {
         echo "-m     marker, e.g. COI"
         echo "-g     geographic location, e.g. Brazil"
         echo "-h     print this help"
-        echo "More Details: http://boldsystems.org/index.php/resources/api?type=webservices#sequenceParameters"
+        echo "More Details about BOLD search/download parameters: http://boldsystems.org/index.php/resources/api?type=webservices#sequenceParameters"
         echo " "
         echo "##################################################"
                 1>&2; exit 1;
