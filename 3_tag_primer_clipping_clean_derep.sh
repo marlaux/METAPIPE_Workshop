@@ -7,8 +7,8 @@ PREFIX=''
 DIR=''
 PRIMER_F_RC=''
 PRIMER_R_RC=''
-MIN_F="6"
-MIN_R="6"
+MIN_F=$(( ${#PRIMER_F} * 2 / 3 ))
+MIN_R=$(( ${#PRIMER_R} * 2 / 3 ))
 MIN_LEN=''
 
 usage () {
