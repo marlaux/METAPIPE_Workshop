@@ -20,8 +20,6 @@ PAIR1="Tags_LA1.fa"
 PAIR2="Tags_LA2.fa"
 PAIR3="Tags_LA3.fa"
 
-### demultiplex (Linked Adapter)
-
 cutadapt	\
 	--quiet	\
         -a file:${PAIR1}        \
@@ -33,6 +31,3 @@ cutadapt	\
 		
 mkdir demulti_linked_samples		
 mv *.fq demulti_linked_samples
-cd demulti_linked_samples/
-find . -type f -empty -print -delete
-cd ..
